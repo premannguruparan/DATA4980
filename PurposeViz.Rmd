@@ -1,0 +1,84 @@
+---
+title: "Visualizing Aid Purposes"
+author: "Premann Guruparan"
+date: "2025-02-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r Importing Libraries}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(scales)
+```
+
+
+```{r}
+aid_data<-read.csv("/Users/premann/Downloads/Aid Data Example - Sheet1.csv")
+```
+
+```{r}
+aid_data %>% distinct(coalesced_purpose_name)
+```
+```{r}
+unique(aid_data$coalesced_purpose_name)
+
+```
+
+```{r}
+aid_data <- aid_data %>%
+  mutate(purpose_group = case_when(
+    grepl("health|medical|nutrition|reproductive", coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Health & Nutrition",
+    grepl("education|training|teacher", 
+          coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Education & Training",
+    grepl("agriculture|food|livestock", 
+          coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Agriculture & Food Security",
+    grepl("water|sanitation|waste", 
+          coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Water & Sanitation",
+    grepl("energy|power|bio-diversity|environment", coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Energy & Environment",
+    grepl("trade|economic|financial|industrial", coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Economic Development & Trade",
+    grepl("transport|infrastructure", 
+          coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Infrastructure & Transportation",
+    grepl("government|legal|civil|rights|corruption|elections", coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Governance & Civil Society",
+    grepl("emergency|disaster|refugees|relief", coalesced_purpose_name, ignore.case = TRUE) 
+    ~ "Disaster Response & Humanitarian Aid",
+    TRUE ~ "Other"
+  ))
+
+
+```
+
+```{r}
+purpose_summary <- aid_data %>%
+  group_by(purpose_group) %>%
+  summarize(total_aid = sum(commitment_amount_usd_constant, na.rm = TRUE)) %>%
+  arrange(desc(total_aid))
+
+
+```
+
+```{r}
+
+ggplot(purpose_summary, aes(x = purpose_group, y = total_aid)) +
+  geom_bar(stat = "identity",fill="midnightblue") +
+  coord_flip() + 
+  labs(title = "Aid Allocation by Purpose",
+       x = "Purpose Group",
+       y = "Total Aid (USD)") +
+  scale_y_continuous(labels = scales::label_number(scale = 1e-6, suffix = "M")) +
+  theme_minimal()
+
+```
