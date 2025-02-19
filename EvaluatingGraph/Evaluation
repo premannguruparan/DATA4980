@@ -1,0 +1,36 @@
+Evaluation of "Sales Proportion vs. Date" Graph  
+1. Intended User: Sales managers or marketing teams. Why?: They need to track product performance trends over time to optimize strategies.  
+2. Data Types:  
+   - Ordinal (months on x-axis) 
+   - Quantitative (proportions as percentages on y-axis)  
+   - Categorical (Product 1, 2, 3)  
+3. Tasks:  
+   - Analyze trend, sales proportions over months   
+4. Graph: A graph is needed a stacked area or line chart would show trends.  
+5. Encoding:  
+   - ""  
+6. Variable Placement: Months (x-axis), proportions (y-axis), products (color/legend) 
+7. Elements:  
+   - Months are ordered chronologically.  
+   - Legends for products are clear.
+   - Descriptive title is clear.  
+8. Featured Data: ""
+
+Evaluation of "CO2 Emissions" Graph  
+1. Intended User: Environmental policymakers or researchers comparing national emission contributions.  
+2. Data Types:  
+   - Categorical (countries).  
+   - Quantitative (percentages).  
+3. Tasks:  
+   - {Compare, emission percentages across countries}.  
+   - {Identify, top contributors}.  
+4. Graph: A bar chart is suitable for comparing discrete values. A pie chart would be misleading (total ≠ 100%).  
+5. Encoding:  
+   - Bar length for percentages.  
+   - Color for country distinction.  
+6. Variable Placement: Countries on x-axis, percentages on y-axis.  
+7. Elements:  
+   - Check if percentages are absolute or relative (current total exceeds 100%, so clarify data context).  
+   - Label countries directly or use a legend.  
+   - Gridlines/tick marks should reflect accurate scaling (e.g., 0–35%).  
+8. Featured Data: Emphasize top emitters (China, US). Clarify if percentages represent global totals or a subset.
